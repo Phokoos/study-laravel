@@ -1,5 +1,10 @@
 <?php
 
+
+use App\Models\Photo;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Country;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PostsControllers;
@@ -113,8 +118,6 @@ use Illuminate\Support\Facades\DB;
 // });
 
 
-use App\Models\Post;
-use App\Models\User;
 //! Eloquent relationships
 /*Route::get('user/{id}/post', function ($id) {
     return User::find($id)->post;
@@ -125,11 +128,48 @@ use App\Models\User;
 });*/
 
 // One to many
-Route::get('/posts', function () {
+/*Route::get('/posts', function () {
     $user = User::find(1);
 
     foreach ($user->posts as $post) {
         echo $post->id;
     }
-});
+});*/
 
+/*Route::get("/user/{id}/role", function ($id){
+   $user = User::find($id);
+   foreach($user->roles as $role){
+       echo $role;
+   }
+});*/
+
+// Accessing the intermediate table
+/*Route::get("user/pivot", function (){
+   $user = User::find(1);
+
+   foreach ($user->roles as $role){
+       echo $role->pivot;
+   }
+});*/
+
+/*Route::get('/user/country', function (){
+    $country = Country::find(1);
+    foreach ($country->posts as $post){
+        echo $post->title;
+    }
+});*/
+
+// Polymorphic Relations
+
+/*Route::get('/post/photos', function (){
+    $post = Post::find(1);
+
+    foreach ($post->photos as $photo){
+        echo $photo;
+    }
+});*/
+
+Route::get('/photo/{id}/post', function ($id){
+    $photo = Photo::findOrFail($id);
+    return $photo;
+});
