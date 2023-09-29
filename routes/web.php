@@ -3,6 +3,7 @@
 
 use App\Models\Photo;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use App\Models\Country;
 use Illuminate\Support\Facades\Route;
@@ -169,7 +170,22 @@ use Illuminate\Support\Facades\DB;
     }
 });*/
 
-Route::get('/photo/{id}/post', function ($id){
+/*Route::get('/photo/{id}/post', function ($id){
     $photo = Photo::findOrFail($id);
     return $photo;
+});*/
+
+// Polymorphic many to many
+/*Route::get('/posts/tag', function (){
+    $post = Post::find(1);
+    foreach ($post->tags as $tag){
+        echo $tag;
+    }
+});*/
+
+Route::get('/tag/post',function (){
+    $tag = Tag::find(2);
+    foreach ($tag->posts as $post){
+        echo  $post;
+    }
 });
