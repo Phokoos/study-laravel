@@ -7,8 +7,7 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Models\Country;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\PostsControllers;
+//use App\Http\Controllers\PostsControllers;
 
 // Route::resource('post', PostsControllers::class);
 // Route::get('contact', [PostsControllers::class, "contact"]);
@@ -16,6 +15,11 @@ use App\Http\Controllers\PostsControllers;
 
 //! Work with fields in DB
 use Illuminate\Support\Facades\DB;
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Route::get('insert', function () {
 // 		DB::insert('insert into posts (title, content) values (?, ?)', ['PHP with Laravel', 'Laravel`s the best thing!']);
@@ -183,9 +187,19 @@ use Illuminate\Support\Facades\DB;
     }
 });*/
 
-Route::get('/tag/post',function (){
-    $tag = Tag::find(2);
-    foreach ($tag->posts as $post){
-        echo  $post;
-    }
-});
+//Route::get('/tag/post',function (){
+//    $tag = Tag::find(2);
+//    foreach ($tag->posts as $post){
+//        echo  $post;
+//    }
+//});
+
+/*
+ |----------------------------------------
+ | Crud Application
+ |----------------------------------------
+ |
+ */
+
+
+Route::resource('/posts', 'App\Http\Controllers\PostsControllers');

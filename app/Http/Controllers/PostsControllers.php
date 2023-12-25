@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostsControllers extends Controller
@@ -11,7 +12,9 @@ class PostsControllers extends Controller
      */
     public function index()
     {
-			return "It`s working id is: ";
+        $posts = Post::all();
+
+		return view('posts.index', compact('posts'));
     }
 
     /**
@@ -19,7 +22,7 @@ class PostsControllers extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -27,7 +30,8 @@ class PostsControllers extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create($request->all());
+        return redirect('/posts');
     }
 
     /**
@@ -35,7 +39,9 @@ class PostsControllers extends Controller
      */
     public function show(string $id)
     {
-			return "It`s working id is: ". $id;
+        $post = Post::findOrFail($id);
+
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -43,7 +49,10 @@ class PostsControllers extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('posts.edit', compact('post'));
+
     }
 
     /**
@@ -51,7 +60,10 @@ class PostsControllers extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
+
+        return redirect('posts');
     }
 
     /**
@@ -59,7 +71,9 @@ class PostsControllers extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect('/posts');
     }
 
 		public function contact() {
@@ -70,7 +84,7 @@ class PostsControllers extends Controller
 		}
 
 		public function show_post($id) {
-			
+
 
 			return view('post', compact('id'));
 		}
