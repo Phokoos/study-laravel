@@ -202,4 +202,9 @@ Route::get('/', function () {
  */
 
 
-Route::resource('/posts', 'App\Http\Controllers\PostsControllers');
+
+Route::group(['middleware' => 'web'], function (){
+    Route::resource('/posts', 'App\Http\Controllers\PostsControllers');
+
+
+});
